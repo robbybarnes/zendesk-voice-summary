@@ -1,0 +1,33 @@
+#!/bin/bash
+# Wrapper script for voice_summary.py
+# This script manages environment setup and file organization
+
+# Configuration - Adjust these paths for your setup
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VENV_DIR="$PROJECT_DIR/venv"
+SCRIPT_PATH="$PROJECT_DIR/voice_summary.py"
+TRANSCRIPT_DIR="$HOME/zendesk-transcripts"
+
+# Check if script exists
+if [ ! -f "$SCRIPT_PATH" ]; then
+    echo "Error: voice_summary.py not found at $SCRIPT_PATH"
+    exit 1
+fi
+
+# Create transcript directory if it doesn't exist
+if [ ! -d "$TRANSCRIPT_DIR" ]; then
+    echo "Creating transcript directory at $TRANSCRIPT_DIR..."
+    mkdir -p "$TRANSCRIPT_DIR"
+fi
+
+# Change to transcript directory
+cd "$TRANSCRIPT_DIR" || exit 1
+
+# Check if virtual environment exists and use it
+if [ -d "$VENV_DIR" ]; then
+    # Activate virtual environment
+    source "$VENV_DIR/bin/activate" 2>/dev/null || source "$VENV_DIR/Scripts/activate" 2>/dev/null
+fi
+
+# Execute the Python script with all arguments
+python "$SCRIPT_PATH" "$@"
