@@ -258,7 +258,7 @@ def transcribe_audio(file_path: str, model: str = "whisper-1") -> str:
 
 @retry_on_failure
 def summarize_transcript(transcript: str, context: Dict) -> str:
-    """Summarize the call transcript with context via gpt-4o-mini."""
+    """Summarize the call transcript with context via GPT-5."""
     prompt = (
         f"You are a professional support desk call summarizer. "
         f"The customer is '{context['requester']}', and the support agent is '{context['assignee']}'. "
@@ -277,7 +277,7 @@ def summarize_transcript(transcript: str, context: Dict) -> str:
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5",
             messages=[
                 {"role": "system", "content": "You summarize support desk call transcripts for other support agents."},
                 {"role": "user", "content": prompt}
@@ -339,7 +339,7 @@ def summarize_multiple_transcripts(transcripts_data: List[Dict], context: Dict) 
     
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-5",
             messages=[
                 {"role": "system", "content": "You summarize support desk call transcripts for other support agents. Format your response clearly with sections for each call."},
                 {"role": "user", "content": prompt}
@@ -509,7 +509,7 @@ def process_ticket(ticket_id: str, post_to_zendesk: bool = True,
             }
         
         # Phase 2: Summarize all transcripts together
-        print(f"\nPhase 2: Summarizing {len(transcripts_data)} transcript(s) with GPT-4o-mini...")
+        print(f"\nPhase 2: Summarizing {len(transcripts_data)} transcript(s) with GPT-5...")
         try:
             combined_summary = summarize_multiple_transcripts(transcripts_data, context)
             

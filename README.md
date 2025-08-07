@@ -6,7 +6,7 @@ An automated tool for transcribing and summarizing voice recordings from Zendesk
 
 - Downloads voice recordings from Zendesk tickets
 - Transcribes audio using OpenAI Whisper API
-- Generates intelligent summaries with GPT-4o-mini
+- Generates intelligent summaries with GPT-5
 - Posts summaries back to tickets as private comments
 - Handles multiple recordings per ticket
 - Skip existing transcripts to save time
@@ -17,7 +17,7 @@ An automated tool for transcribing and summarizing voice recordings from Zendesk
 
 ### Prerequisites
 
-- Python 3.7+
+- Python 3.8+
 - Zendesk account with API access
 - OpenAI API key
 
@@ -37,7 +37,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 3. Install dependencies:
 ```bash
-pip install requests openai
+pip install -r requirements.txt
 ```
 
 4. Set environment variables:
@@ -145,7 +145,7 @@ Set these environment variables:
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.8+
 - `requests` - For Zendesk API calls
 - `openai` - For Whisper transcription and GPT summarization
 
